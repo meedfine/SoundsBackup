@@ -6,7 +6,7 @@
         {{ subItem.name }}
       </li>
     </ul>
-    <UserInfo class="loginTips">
+    <UserInfo v-if="!userReady" class="loginTips">
       <div class="login">登 录</div>
       <div class="tips">以解锁FM、云盘、歌单</div>
     </UserInfo>
@@ -49,7 +49,8 @@ export default Vue.extend({
           name: "",
           list: []
         }
-      ]
+      ],
+      userReady: false
     };
   },
   watch: {
@@ -76,6 +77,7 @@ export default Vue.extend({
             }
           ]
         };
+        this.userReady = true;
       }
     }
   },

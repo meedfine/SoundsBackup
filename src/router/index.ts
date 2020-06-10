@@ -43,6 +43,12 @@ const routes = [
   }
 ];
 
+routes.push({
+  // 404页面
+  path: "*",
+  redirect: "/"
+});
+
 const router = new VueRouter({
   routes
 });

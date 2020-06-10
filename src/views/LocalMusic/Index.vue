@@ -32,18 +32,20 @@ import nativeUtil from "@/utils/index";
 export default Vue.extend({
   data() {
     return {
-      musicList: [] as AudioDes[]
+      musicList: this.$store.state.localMusicList as AudioDes[]
     };
   },
   methods: {
     async openFolder() {
       const path = await nativeUtil.chooseFolder();
       const info = await nativeUtil.readFolder(path);
+      this.$store.commit("SET_LOCALMUSICFOLDER", [path]);
       this.musicList = [];
       for (const file of info.files) {
         let audioDes = await nativeUtil.readMetadata(file.path);
         audioDes && (audioDes = { ...audioDes, ...file }) && this.musicList.push(audioDes);
       }
+      this.$store.commit("SET_LOCALMUSICLIST", this.musicList);
     },
     playMusic(row) {
       this.$store.commit("SET_PLAYLIST", this.musicList);

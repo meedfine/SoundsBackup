@@ -3,7 +3,7 @@
     <div @click="loginVisible = true">
       <slot>登录</slot>
     </div>
-    <el-dialog center title="登录" :visible.sync="loginVisible" :modal="true" width="40%">
+    <el-dialog center title="登录" :visible.sync="loginVisible" :modal="true" width="500px">
       <el-form :model="form">
         <el-form-item label="手机号">
           <el-input v-model="form.phone" autocomplete="off"></el-input>

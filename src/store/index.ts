@@ -11,7 +11,9 @@ export default new Vuex.Store({
     playStatus: false,
     volume: 0.3,
     mode: "round" as PlayType, // round random sequence single
-    userInfo: {}
+    userInfo: {},
+    localMusicFolder: [],
+    localMusicList: []
   },
   mutations: {
     SET_PLAYLIST(state, value) {
@@ -51,6 +53,12 @@ export default new Vuex.Store({
     },
     SET_USERINFO(state, value) {
       state.userInfo = value;
+    },
+    SET_LOCALMUSICLIST(state, value) {
+      state.localMusicList = value;
+    },
+    SET_LOCALMUSICFOLDER(state, value) {
+      state.localMusicFolder = value;
     }
   },
   actions: {},
