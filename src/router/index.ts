@@ -1,23 +1,45 @@
 import Vue from "vue";
-import VueRouter, { RouteConfig } from "vue-router";
-import Home from "../views/Home.vue";
+import VueRouter from "vue-router";
+import CommonLayout from "../components/Layout/Common.vue";
+
+const originalPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location) {
+  return (originalPush.call(this, location) as any).catch(err => err);
+};
 
 Vue.use(VueRouter);
 
-const routes: Array<RouteConfig> = [
+const routes = [
   {
     path: "/",
-    name: "Home",
-    component: Home
+    redirect: "/findMusic"
   },
   {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+    path: "/findMusic",
+    component: CommonLayout,
+    children: [
+      {
+        path: "",
+        name: "Home",
+        component: () => import("@/views/FindMusic/Index.vue")
+      }
+    ]
+  },
+  {
+    path: "/localMusic",
+    component: CommonLayout,
+    children: [
+      {
+        path: "",
+        name: "LocalMusic",
+        component: () => import("@/views/LocalMusic/Index.vue")
+      }
+    ]
+  },
+  {
+    path: "/trayMenu",
+    name: "trayMenu",
+    component: () => import("@/views/Tray/Tray.vue")
   }
 ];
 

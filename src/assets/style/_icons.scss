@@ -1,0 +1,130 @@
+.icon-hide {
+  display: inline-block;
+  width: 42px;
+  height: 28px;
+  position: relative;
+  transition: all 0.2s;
+  &:hover {
+    background-color: #ddd;
+    &::before {
+      background-color: #000;
+    }
+  }
+  &::before {
+    display: inline-block;
+    width: 10px;
+    height: 1px;
+    background-color: #444;
+    border-radius: 2px;
+    content: "";
+    position: absolute;
+    top: 17px;
+    left: 16px;
+    transition: all 0.2s;
+  }
+}
+.icon-minimax {
+  position: relative;
+  display: inline-block;
+  width: 42px;
+  height: 28px;
+  transition: all 0.2s;
+  &:hover {
+    background-color: #ddd;
+  }
+  &::before {
+    display: inline-block;
+    content: "";
+    width: 12px;
+    height: 10px;
+    border: 1px solid #444;
+    border-radius: 2px;
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    transition: all 0.2s;
+  }
+}
+.icon-minimax2 {
+  position: relative;
+  display: inline-block;
+  width: 42px;
+  height: 28px;
+  transition: all 0.2s;
+  &:hover {
+    background-color: #ddd;
+  }
+  &::before,
+  &::after {
+    display: inline-block;
+    content: "";
+    width: 11px;
+    height: 9px;
+    border-radius: 2px;
+    position: absolute;
+    top: 9px;
+    left: 17px;
+    transition: all 0.2s;
+  }
+  &::before{
+    border-top: 1px solid #444;
+    border-right: 1px solid #444;
+  }
+  &::after {
+    top: 11px;
+    left: 15px;
+    border: 1px solid #444;
+  }
+}
+.icon-close {
+  display: inline-block;
+  width: 42px;
+  height: 28px;
+  position: relative;
+  transition: all 0.2s;
+  &:hover {
+    background-color: #ff0436;
+    &::before,
+    &::after {
+      background-color: #fff;
+      height: 2px;
+    }
+  }
+  &::before,
+  &::after {
+    display: inline-block;
+    width: 14px;
+    height: 1px;
+    background-color: #000;
+    border-radius: 2px;
+    content: "";
+    position: absolute;
+    top: 13px;
+    left: 14px;
+    transition: all 0.2s;
+  }
+  &::before {
+    transform: rotate3d(0, 0, 1, 135deg);
+  }
+  &::after {
+    transform: rotate3d(0, 0, 1, 45deg);
+  }
+}
+.icon-play{
+  display: inline-block;
+  height: 14px;
+  width: 14px;
+  
+  border-color: transparent transparent transparent white;
+  transition: 150ms all ease;
+  will-change: border-width;
+  // play state
+  border-style: solid;
+  border-width: 7px 0 7px 12px;
+
+  // paused state
+  &.pause {
+    border-style: double;
+    border-width: 0 0 0 8px;
+  }
+}
