@@ -5,6 +5,7 @@
 <script lang="ts">
 import Vue from "vue";
 import fs from "fs";
+import { ipcRenderer } from "electron";
 const fsPromises = fs.promises;
 export default Vue.extend({
   props: {
@@ -79,10 +80,11 @@ export default Vue.extend({
       this.$emit("musicUpdateTime", 0);
       this.readyFlag = false;
       const data = await this.readAudioFile(path);
+      console.log(data);
       const audioContext = new AudioContext();
       const audioSource = audioContext.createBufferSource();
       const audioGain = audioContext.createGain();
-      return audioContext.decodeAudioData(data.buffer).then(value => {
+      return audioContext.decodeAudioData(data).then(value => {
         this.readyFlag = true;
         audioSource.buffer = value;
         audioSource.connect(audioGain);
@@ -154,7 +156,18 @@ export default Vue.extend({
       }, 25);
     },
     async readAudioFile(path: string): Promise<any> {
-      return fsPromises.readFile(path);
+      if (path.indexOf("http") != -1) {
+        const id = new Date().getTime();
+        ipcRenderer.send("useStream", { id: id, type: "get", url: path });
+        // const buffer = new Buffer();
+        ipcRenderer.on("stream" + id, (event, value) => {
+          if (value) {
+            // buffer.write
+          }
+        });
+      } else {
+        return fsPromises.readFile(path).then(res => res.buffer);
+      }
     }
   }
 });

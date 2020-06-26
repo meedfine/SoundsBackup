@@ -19,8 +19,8 @@ protocol.registerSchemesAsPrivileged([{ scheme: "app", privileges: { secure: tru
 function createMain() {
   // Create the browser window.
   win = new BrowserWindow({
-    width: 1000,
-    height: 600,
+    width: 1700,
+    height: 800,
     frame: false,
     fullscreenable: false,
     show: false,
@@ -294,4 +294,20 @@ ipcMain.on("openDirectoryDialog", () => {
 });
 ipcMain.on("exitAPP", () => {
   app.exit();
+});
+ipcMain.on("useStream", (event, args) => {
+  const { id, type, url } = args;
+  if (type == "get") {
+    axios.get(url, { responseType: "stream" }).then(res => {
+      const stream = res.data;
+      stream.on("data", chunk => {
+        win && win.webContents.send("stream" + id, chunk);
+      });
+      stream.on("end", () => {
+        win && win.webContents.send("stream" + id, "");
+      });
+    });
+  }
+  win && win.webContents.send("stream" + id, args);
+  // console.log(event, args);
 });

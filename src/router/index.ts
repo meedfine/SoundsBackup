@@ -1,10 +1,10 @@
 import Vue from "vue";
-import VueRouter from "vue-router";
+import VueRouter, { Location } from "vue-router";
 import CommonLayout from "../components/Layout/Common.vue";
 
 const originalPush = VueRouter.prototype.push;
-VueRouter.prototype.push = function push(location) {
-  return (originalPush.call(this, location) as any).catch(err => err);
+VueRouter.prototype.push = function push(location: Location) {
+  return (originalPush.call(this, location) as any).catch((err: Error) => err);
 };
 
 Vue.use(VueRouter);

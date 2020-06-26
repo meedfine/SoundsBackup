@@ -22,7 +22,7 @@ export default {
    * @param params id
    */
   getSongUrl(params: { id: any }) {
-    return axios.get(`${baseUrl}/song/url`, { params });
+    return axios.get(`${baseUrl}/song/url`, { params, withCredentials: true });
   },
   /**
    * 手机号登录

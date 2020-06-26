@@ -19,20 +19,26 @@ const funcGroup = {
     for (let i = 0; i < items.length; i++) {
       const item = items[i];
       const itemPath = dirName + item;
-      await fsPromises.lstat(itemPath).then(stat => {
-        stat.isDirectory()
-          ? folders.push({
-              path: itemPath,
-              name: item,
-              folders: [],
-              files: []
-            })
-          : files.push({
-              path: itemPath,
-              name: item,
-              size: stat.size
-            });
-      });
+      await fsPromises
+        .lstat(itemPath)
+        .then(stat => {
+          console.log(1);
+          stat.isDirectory()
+            ? folders.push({
+                path: itemPath,
+                name: item,
+                folders: [],
+                files: []
+              })
+            : files.push({
+                path: itemPath,
+                name: item,
+                size: stat.size
+              });
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
     return {
       name: path.split("\\").pop() as string,
